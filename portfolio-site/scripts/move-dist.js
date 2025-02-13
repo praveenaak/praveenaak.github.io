@@ -1,8 +1,12 @@
-const fs = require('fs-extra');
-const path = require('path');
+import fs from 'fs-extra';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-const distPath = path.join(__dirname, '../dist');
-const rootPath = path.join(__dirname, '../../');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const distPath = join(__dirname, '../dist');
+const rootPath = join(__dirname, '../../');
 
 async function moveFiles() {
   try {
@@ -10,7 +14,7 @@ async function moveFiles() {
     const existingFiles = await fs.readdir(rootPath);
     for (const file of existingFiles) {
       if (file !== '.git' && file !== 'portfolio-site') {
-        await fs.remove(path.join(rootPath, file));
+        await fs.remove(join(rootPath, file));
       }
     }
 
