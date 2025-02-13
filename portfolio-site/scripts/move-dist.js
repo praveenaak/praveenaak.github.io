@@ -1,16 +1,15 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-// Get the paths
 const distPath = path.join(__dirname, '../dist');
 const rootPath = path.join(__dirname, '../../');
 
 async function moveFiles() {
   try {
-    // Remove existing files in root (except .git and node_modules)
+    // Remove existing files in root (except .git and portfolio-site)
     const existingFiles = await fs.readdir(rootPath);
     for (const file of existingFiles) {
-      if (file !== '.git' && file !== 'node_modules' && file !== 'portfolio-site') {
+      if (file !== '.git' && file !== 'portfolio-site') {
         await fs.remove(path.join(rootPath, file));
       }
     }
