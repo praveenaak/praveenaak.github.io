@@ -8,9 +8,24 @@
         <Earth />
       </div>
     </div>
-    <div v-if="showRiver" class="river-segments">
-      <div v-for="i in 10" :key="i" class="river-segment" :class="`segment-${i}`">
-        <img src="/textures/CarsonREM-3.png" alt="River" class="river-image" />
+    <River v-if="showRiver" @toggleInfo="isInfoOpen = true" />
+    
+    <!-- Info Modal -->
+    <div v-if="isInfoOpen" class="modal-overlay" @click="isInfoOpen = false">
+      <div class="modal-content" @click.stop>
+        <button class="close-button" @click="isInfoOpen = false" aria-label="Close">×</button>
+        <h2 class="modal-title">About this image</h2>
+        <p class="modal-text">
+          Relative Elevation Model of the Carson River. Inspired by 
+        <a 
+          href="https://dancoecarto.com/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          Dan Coe
+        </a>
+        ’s work.
+        </p>
       </div>
     </div>
   </div>
@@ -20,16 +35,19 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import Typed from 'typed.js';
 import Earth from './Earth.vue';
+import River from './River.vue';
 
 export default defineComponent({
   name: 'TypingAnimation',
   components: {
-    Earth
+    Earth,
+    River
   },
   setup() {
     const typingElement = ref<HTMLElement | null>(null);
     const showEarth = ref(false);
     const showRiver = ref(false);
+    const isInfoOpen = ref(false);
 
     onMounted(() => {
       const link = document.createElement('link');
@@ -63,7 +81,8 @@ export default defineComponent({
     return {
       typingElement,
       showEarth,
-      showRiver
+      showRiver,
+      isInfoOpen
     };
   }
 });
@@ -78,8 +97,8 @@ export default defineComponent({
   flex-direction: column;
   width: 100%;
   margin: 0;
-  padding: 2rem 0;
-  min-height: 600px;
+  padding-top: 1rem; 
+  min-height: 400px; 
 }
 
 .text-earth-container {
@@ -88,8 +107,8 @@ export default defineComponent({
   align-items: center;
   font-size: 2rem;
   margin-left: 2rem;
-  margin-top: 4rem;
-  padding-top: 2rem;
+  margin-top: 2rem; 
+  padding-top: 1rem; 
   height: 200px;
 }
 
@@ -109,49 +128,8 @@ export default defineComponent({
   opacity: 0;
 }
 
-.river-segments {
-  position: relative;
-  width: 100%;
-  margin-top: -20rem;
-}
-
-.river-segment {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  opacity: 0;
-}
-
-.river-image {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-.segment-1 { clip-path: inset(0 90% 0 0); animation: fadeInSegment 0.2s ease forwards; }
-.segment-2 { clip-path: inset(0 80% 0 10%); animation: fadeInSegment 0.2s ease forwards 0.1s; }
-.segment-3 { clip-path: inset(0 70% 0 20%); animation: fadeInSegment 0.2s ease forwards 0.2s; }
-.segment-4 { clip-path: inset(0 60% 0 30%); animation: fadeInSegment 0.2s ease forwards 0.3s; }
-.segment-5 { clip-path: inset(0 50% 0 40%); animation: fadeInSegment 0.2s ease forwards 0.4s; }
-.segment-6 { clip-path: inset(0 40% 0 50%); animation: fadeInSegment 0.2s ease forwards 0.5s; }
-.segment-7 { clip-path: inset(0 30% 0 60%); animation: fadeInSegment 0.2s ease forwards 0.6s; }
-.segment-8 { clip-path: inset(0 20% 0 70%); animation: fadeInSegment 0.2s ease forwards 0.7s; }
-.segment-9 { clip-path: inset(0 10% 0 80%); animation: fadeInSegment 0.2s ease forwards 0.8s; }
-.segment-10 { clip-path: inset(0 0 0 90%); animation: fadeInSegment 0.2s ease forwards 0.9s; }
-
 .fade-scale-in {
   animation: fadeScaleIn 2s ease forwards;
-}
-
-@keyframes fadeInSegment {
-  0% {
-    opacity: 0;
-    transform: scaleY(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scaleY(1);
-  }
 }
 
 @keyframes fadeScaleIn {
@@ -163,6 +141,68 @@ export default defineComponent({
     opacity: 1;
     transform: translateY(-50%) scale(1);
   }
+}
+
+.modal-overlay {
+  position: fixed;
+  right: calc(2rem + 40px); 
+  top: 220px; 
+  background: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+  border: 2px solid #fff;
+  max-width: 300px;
+  width: 100%;
+  position: relative;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  image-rendering: pixelated;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-family: 'VT323', monospace;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  color: #fff;
+}
+
+.modal-title {
+  font-family: 'VT323', monospace;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: normal;
+  color: #fff;
+}
+
+.modal-text {
+  font-family: 'VT323', monospace;
+  line-height: 1.4;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.modal-text a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 2px solid #fff;
+}
+
+.modal-text a:hover {
+  border-bottom-style: dashed;
 }
 
 :deep(.typed-cursor) {
@@ -178,7 +218,14 @@ export default defineComponent({
   opacity: 1 !important;
 }
 
-:deep(.typed-cursor.typed-cursor--blink) {
-  animation: none !important;
+/* Add fade transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
