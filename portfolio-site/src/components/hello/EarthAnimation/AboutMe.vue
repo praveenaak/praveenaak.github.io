@@ -3,10 +3,12 @@
       <div class="about-content">
         <h2 class="about-title">ABOUT ME</h2>
         <p class="about-text">
-            Hello! I’m Praveenaa, a geospatial software developer with 3+ years of experience transforming, analyzing, and visualizing complex spatial datasets to build dynamic tools 
-            and applications that truly bring maps to life. 
-            My greatest passion lies in working with climate data, turning environmental information into interactive platforms that deepen our understanding of our changing planet. 
-            And if there’s one thing I love most, it’s looking at maps all day!
+            Hello! I’m Praveenaa, a geospatial software developer with 3+ years of experience transforming, analyzing, and visualizing complex spatial datasets to build dynamic, map-driven applications. 
+            I’m most passionate about working with climate data, developing tools that broaden our understanding of our changing planet. 
+            
+        </p>
+        <p class="about-text">
+          If you find my work interesting, feel free to reach out—I’d be happy to connect.
         </p>
       </div>
     </div>

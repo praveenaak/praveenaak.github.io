@@ -1,7 +1,7 @@
 // TitleBar.vue
 <template>
   <div class="title-bar" :class="{ 'fade-in': show }">
-    <div class="name">PRAVEENAA KULANDHAIVEL</div>
+    <router-link to="/" class="name">PRAVEENAA KULANDHAIVEL</router-link>
     <div class="nav-links">
       <router-link to="/resume" class="nav-link">RESUME</router-link>
       <router-link to="/projects" class="nav-link">PROJECTS</router-link>
@@ -32,20 +32,28 @@ export default defineComponent({
   left: 0;
   width: 100%;
   height: 50px;
-  background-color: white;
+  background-color: #893168;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
   font-family: 'VT323', monospace;
   font-size: 1.5rem;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   opacity: 0;
   z-index: 1000;
 }
 
 .name {
-  color: #000;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.9;
+}
+
+.name:hover {
+  opacity: 1;
 }
 
 .nav-links {
@@ -54,14 +62,16 @@ export default defineComponent({
 }
 
 .nav-link {
-  color: #000;
+  color: #ffffff;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
+  opacity: 0.9;
 }
 
 .nav-link:hover {
-  opacity: 0.7;
+  opacity: 1;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
 .fade-in {

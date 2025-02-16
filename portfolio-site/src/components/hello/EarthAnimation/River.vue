@@ -2,7 +2,7 @@
 <template>
   <div class="river-container">
     <div class="river-segments">
-      <div v-for="i in 10" :key="i" class="river-segment" :class="`segment-${i}`">
+      <div class="river-segment">
         <img src="/textures/CarsonREM-3.png" alt="River" class="river-image" />
       </div>
       <div class="info-button-container">
@@ -36,7 +36,7 @@
             <p class="popup-text">
               Relative Elevation Model (REM) of the Carson River, NV. Inspired by 
               <a 
-                href="https://www.example.com" 
+                href="https://dancoecarto.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
@@ -89,6 +89,7 @@ export default defineComponent({
   width: 100%;
   height: auto;
   opacity: 0;
+  animation: fadeInSegment 0.2s ease forwards;
 }
 
 .river-image {
@@ -133,7 +134,7 @@ export default defineComponent({
   color: #fff;
   padding: 1.5rem;
   border: 2px solid #fff;
-  width: 300px;
+  width: 280px;
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
   image-rendering: pixelated;
   font-family: 'VT323', monospace;
@@ -173,10 +174,6 @@ export default defineComponent({
 .popup-text a:hover {
   border-bottom-style: dashed;
 }
-
-.segment-1 { clip-path: inset(0 720px 0 0); animation: fadeInSegment 0.2s ease forwards; }
-.segment-2 { clip-path: inset(0 360px 0 360px); animation: fadeInSegment 0.2s ease forwards 0.1s; }
-.segment-3 { clip-path: inset(0 0 0 720px); animation: fadeInSegment 0.2s ease forwards 0.2s; }
 
 @keyframes fadeInSegment {
   0% {

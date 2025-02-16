@@ -1,3 +1,4 @@
+// App.vue
 <template>
   <RouterView />
 </template>
@@ -10,17 +11,22 @@
 }
 
 html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  height: 100%;
+  overflow-y: auto;
 }
 
 #app {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  position: relative;
 }
 </style>

@@ -3,8 +3,8 @@
   <div class="resume-page">
     <TitleBar :show="true" />
     <div class="content">
-      <h1 class="wip-text">WORK IN PROGRESS</h1>
-      <router-link to="/" class="back-link">BACK HOME</router-link>
+      <h1 class="page-title">EXPERIENCE</h1>
+      <Timeline />
     </div>
   </div>
 </template>
@@ -12,11 +12,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TitleBar from '../components/hello/EarthAnimation/TitleBar.vue';
+import Timeline from '../components/timeline/Timeline.vue';
 
 export default defineComponent({
-  name: 'ResumeView',
+  name: 'Resume',
   components: {
-    TitleBar
+    TitleBar,
+    Timeline
   }
 });
 </script>
@@ -27,33 +29,17 @@ export default defineComponent({
 .resume-page {
   min-height: 100vh;
   font-family: 'VT323', monospace;
+  background-color: #f5f5f5;
 }
 
 .content {
-  padding-top: 100px;
-  height: calc(100vh - 50px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding-top: 80px;
 }
 
-.wip-text {
+.page-title {
+  text-align: center;
   font-size: 3rem;
   margin-bottom: 2rem;
-}
-
-.back-link {
-  font-size: 1.5rem;
   color: #000;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border: 2px solid #000;
-  transition: all 0.2s ease;
-}
-
-.back-link:hover {
-  background-color: #000;
-  color: #fff;
 }
 </style>
