@@ -1,13 +1,20 @@
 //TypingAnimation.vue
 <template>
   <div class="typing-container">
-    <TitleBar :show="showTitleBar" />
+    <TitleBar :show="showTitleBar" :showEarth="earthInTitleBar" />
     <div class="text-earth-container">
-      <div class="pixel-text">
+      <div class="pixel-text" :class="{ 'fade-out': shouldFadeText }">
         <span ref="typingElement">{{ hasSeenAnimation ? 'hello' : '' }}</span>
       </div>
-      <div v-if="showEarth" class="earth-container fade-scale-in">
-        <Earth />
+      <div 
+        v-if="showEarth" 
+        class="earth-container"
+        :class="{
+          'fade-scale-in': !earthInTitleBar,
+          'move-to-title': earthInTitleBar
+        }"
+      >
+        <Earth v-if="!earthInTitleBar" :small="false" />
       </div>
     </div>
     
@@ -42,6 +49,8 @@ export default defineComponent({
     const showRiver = ref(false);
     const showTitleBar = ref(false);
     const showContact = ref(false);
+    const shouldFadeText = ref(false);
+    const earthInTitleBar = ref(false);
     const hasSeenAnimation = ref(localStorage.getItem('hasSeenAnimation') === 'true');
 
     const showAllElements = () => {
@@ -51,6 +60,16 @@ export default defineComponent({
         showRiver.value = true;
         showTitleBar.value = true;
         showContact.value = true;
+        
+        // Fade out the text after other elements appear
+        setTimeout(() => {
+          shouldFadeText.value = true;
+          
+          // Move Earth to title bar after text fades
+          setTimeout(() => {
+            earthInTitleBar.value = true;
+          }, 500);
+        }, 500);
       }, 1000);
     };
 
@@ -75,11 +94,16 @@ export default defineComponent({
             smartBackspace: true,
             startDelay: 300,
             backDelay: 500,
+            onComplete: (self) => {
+              const cursor = document.querySelector('.typed-cursor');
+              if (cursor) {
+                cursor.remove();
+              }
+            },
             onStringTyped: (arrayPos) => {
               if (arrayPos === 1) {
                 showAllElements();
                 localStorage.setItem('hasSeenAnimation', 'true');
-                document.querySelector('.typed-cursor')?.remove();
               }
             }
           });
@@ -94,6 +118,8 @@ export default defineComponent({
       showRiver,
       showTitleBar,
       showContact,
+      shouldFadeText,
+      earthInTitleBar,
       hasSeenAnimation
     };
   }
@@ -129,6 +155,13 @@ export default defineComponent({
   font-family: 'VT323', monospace;
   font-size: 2rem;
   color: #000000;
+  transition: opacity 0.5s ease-out;
+  opacity: 1;
+}
+
+.pixel-text.fade-out {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .earth-container {
@@ -139,10 +172,16 @@ export default defineComponent({
   width: 200px;
   height: 200px;
   opacity: 0;
+  transition: all 0.8s ease;
 }
 
 .fade-scale-in {
   animation: fadeScaleIn 1s ease forwards;
+}
+
+.move-to-title {
+  transform: translate(calc(100vw - 280px), -125%) scale(0.225);
+  opacity: 0;
 }
 
 @keyframes fadeScaleIn {

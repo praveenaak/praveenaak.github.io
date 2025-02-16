@@ -1,7 +1,12 @@
 // TitleBar.vue
 <template>
   <div class="title-bar" :class="{ 'fade-in': show }">
-    <router-link to="/" class="name">PRAVEENAA KULANDHAIVEL</router-link>
+    <div class="name-container">
+      <router-link to="/" class="name">PRAVEENAA KULANDHAIVEL</router-link>
+      <div class="earth-container">
+        <Earth :small="true" />
+      </div>
+    </div>
     <div class="nav-links">
       <router-link to="/resume" class="nav-link">RESUME</router-link>
       <router-link to="/projects" class="nav-link">PROJECTS</router-link>
@@ -11,13 +16,17 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Earth from './Earth.vue';
 
 export default defineComponent({
   name: 'TitleBar',
+  components: {
+    Earth
+  },
   props: {
     show: {
       type: Boolean,
-      default: false
+      default: true
     }
   }
 });
@@ -39,21 +48,31 @@ export default defineComponent({
   padding: 0 2rem;
   font-family: 'VT323', monospace;
   font-size: 1.5rem;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   opacity: 0;
   z-index: 1000;
 }
 
+.name-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .name {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  opacity: 0.9;
+  transition: opacity 0.2s ease;
 }
 
 .name:hover {
-  opacity: 1;
+  opacity: 0.7;
+}
+
+.earth-container {
+  width: 30px;
+  height: 30px;
+  margin-left: -5px;
 }
 
 .nav-links {
@@ -62,16 +81,14 @@ export default defineComponent({
 }
 
 .nav-link {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  opacity: 0.9;
 }
 
 .nav-link:hover {
-  opacity: 1;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  opacity: 0.7;
 }
 
 .fade-in {
