@@ -8,7 +8,7 @@
             
         </p>
         <p class="about-text">
-          If you find my work interesting, feel free to reach out—I’d be happy to connect.
+          If you find my work interesting, feel free to reach out—I’d be happy to connect!
         </p>
       </div>
     </div>
@@ -30,7 +30,7 @@
   }
   
   .about-content {
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
   }
   
@@ -43,7 +43,7 @@
   
   .about-text {
     font-family: 'VT323', monospace;
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 1.4;
     margin-bottom: 1rem;
     color: #000;
@@ -52,6 +52,7 @@
   .fade-in {
     animation: fadeIn 1s ease forwards;
   }
+
   
   @keyframes fadeIn {
     from {
