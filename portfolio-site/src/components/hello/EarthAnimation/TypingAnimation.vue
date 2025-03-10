@@ -6,18 +6,18 @@
       <div class="pixel-text" :class="{ 'fade-out': shouldFadeText }">
         <span ref="typingElement">{{ hasSeenAnimation ? 'hello' : '' }}</span>
       </div>
-      <div 
-        v-if="showEarth" 
+      <div
+        v-if="showEarth"
         class="earth-container"
         :class="{
           'fade-scale-in': !earthInTitleBar,
-          'move-to-title': earthInTitleBar
+          'move-to-title': earthInTitleBar,
         }"
       >
         <Earth v-if="!earthInTitleBar" :small="false" />
       </div>
     </div>
-    
+
     <AboutMe v-if="showAbout" />
     <River v-if="showRiver" />
     <ContactInfo v-if="showContact" :show="showContact" />
@@ -25,13 +25,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
-import Typed from 'typed.js';
-import Earth from './Earth.vue';
-import River from './River.vue';
-import AboutMe from './AboutMe.vue';
-import TitleBar from './TitleBar.vue';
-import ContactInfo from './ContactInfo.vue';
+import { defineComponent, ref, onMounted } from 'vue'
+import Typed from 'typed.js'
+import Earth from './Earth.vue'
+import River from './River.vue'
+import AboutMe from './AboutMe.vue'
+import TitleBar from './TitleBar.vue'
+import ContactInfo from './ContactInfo.vue'
 
 export default defineComponent({
   name: 'TypingAnimation',
@@ -40,48 +40,48 @@ export default defineComponent({
     River,
     AboutMe,
     TitleBar,
-    ContactInfo
+    ContactInfo,
   },
   setup() {
-    const typingElement = ref<HTMLElement | null>(null);
-    const showEarth = ref(false);
-    const showAbout = ref(false);
-    const showRiver = ref(false);
-    const showTitleBar = ref(false);
-    const showContact = ref(false);
-    const shouldFadeText = ref(false);
-    const earthInTitleBar = ref(false);
-    const hasSeenAnimation = ref(localStorage.getItem('hasSeenAnimation') === 'true');
+    const typingElement = ref<HTMLElement | null>(null)
+    const showEarth = ref(false)
+    const showAbout = ref(false)
+    const showRiver = ref(false)
+    const showTitleBar = ref(false)
+    const showContact = ref(false)
+    const shouldFadeText = ref(false)
+    const earthInTitleBar = ref(false)
+    const hasSeenAnimation = ref(localStorage.getItem('hasSeenAnimation') === 'true')
 
     const showAllElements = () => {
-      showEarth.value = true;
+      showEarth.value = true
       setTimeout(() => {
-        showAbout.value = true;
-        showRiver.value = true;
-        showTitleBar.value = true;
-        showContact.value = true;
-        
+        showAbout.value = true
+        showRiver.value = true
+        showTitleBar.value = true
+        showContact.value = true
+
         // Fade out the text after other elements appear
         setTimeout(() => {
-          shouldFadeText.value = true;
-          
+          shouldFadeText.value = true
+
           // Move Earth to title bar after text fades
           setTimeout(() => {
-            earthInTitleBar.value = true;
-          }, 500);
-        }, 500);
-      }, 1000);
-    };
+            earthInTitleBar.value = true
+          }, 500)
+        }, 500)
+      }, 1000)
+    }
 
     onMounted(() => {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=VT323&display=swap';
-      document.head.appendChild(link);
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = 'https://fonts.googleapis.com/css2?family=VT323&display=swap'
+      document.head.appendChild(link)
 
       if (hasSeenAnimation.value) {
         // Skip animation if already seen
-        showAllElements();
+        showAllElements()
       } else {
         // Play animation for first time visitors
         if (typingElement.value) {
@@ -95,21 +95,21 @@ export default defineComponent({
             startDelay: 300,
             backDelay: 500,
             onComplete: (self) => {
-              const cursor = document.querySelector('.typed-cursor');
+              const cursor = document.querySelector('.typed-cursor')
               if (cursor) {
-                cursor.remove();
+                cursor.remove()
               }
             },
             onStringTyped: (arrayPos) => {
               if (arrayPos === 1) {
-                showAllElements();
-                localStorage.setItem('hasSeenAnimation', 'true');
+                showAllElements()
+                localStorage.setItem('hasSeenAnimation', 'true')
               }
-            }
-          });
+            },
+          })
         }
       }
-    });
+    })
 
     return {
       typingElement,
@@ -120,10 +120,10 @@ export default defineComponent({
       showContact,
       shouldFadeText,
       earthInTitleBar,
-      hasSeenAnimation
-    };
-  }
-});
+      hasSeenAnimation,
+    }
+  },
+})
 </script>
 
 <style scoped>

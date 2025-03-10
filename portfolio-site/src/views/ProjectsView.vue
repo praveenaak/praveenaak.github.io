@@ -10,15 +10,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import TitleBar from '../components/hello/EarthAnimation/TitleBar.vue';
+import { defineComponent } from 'vue'
+import TitleBar from '../components/hello/EarthAnimation/TitleBar.vue'
 
 export default defineComponent({
   name: 'Projects',
   components: {
-    TitleBar
-  }
-});
+    TitleBar,
+  },
+})
 </script>
 
 <style scoped>

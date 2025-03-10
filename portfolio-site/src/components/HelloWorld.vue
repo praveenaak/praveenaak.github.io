@@ -5,15 +5,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import TypingAnimation from './hello/EarthAnimation/TypingAnimation.vue';
+import { defineComponent } from 'vue'
+import TypingAnimation from './hello/EarthAnimation/TypingAnimation.vue'
 
 export default defineComponent({
   name: 'HelloWorld',
   components: {
-    TypingAnimation
-  }
-});
+    TypingAnimation,
+  },
+})
 </script>
 
 <style scoped>

@@ -10,17 +10,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import TitleBar from '../components/hello/EarthAnimation/TitleBar.vue';
-import Timeline from '../components/timeline/Timeline.vue';
+import { defineComponent } from 'vue'
+import TitleBar from '../components/hello/EarthAnimation/TitleBar.vue'
+import Timeline from '../components/timeline/Timeline.vue'
 
 export default defineComponent({
   name: 'Resume',
   components: {
     TitleBar,
-    Timeline
-  }
-});
+    Timeline,
+  },
+})
 </script>
 
 <style scoped>

@@ -15,21 +15,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Earth from './Earth.vue';
+import { defineComponent } from 'vue'
+import Earth from './Earth.vue'
 
 export default defineComponent({
   name: 'TitleBar',
   components: {
-    Earth
+    Earth,
   },
   props: {
     show: {
       type: Boolean,
-      default: true
-    }
-  }
-});
+      default: true,
+    },
+  },
+})
 </script>
 
 <style scoped>

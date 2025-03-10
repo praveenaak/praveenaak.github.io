@@ -6,25 +6,21 @@
         <img src="/textures/CarsonREM-3.png" alt="River" class="river-image" />
       </div>
       <div class="info-button-container">
-        <button 
-          @click="toggleInfo"
-          class="info-button"
-          aria-label="Show information"
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            stroke-width="2" 
-            stroke-linecap="round" 
+        <button @click="toggleInfo" class="info-button" aria-label="Show information">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
             stroke-linejoin="round"
           >
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="16" x2="12" y2="12"/>
-            <line x1="12" y1="8" x2="12.01" y2="8"/>
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
           </svg>
         </button>
 
@@ -34,12 +30,8 @@
             <button class="close-button" @click="toggleInfo" aria-label="Close">×</button>
             <h2 class="popup-title">About this Image</h2>
             <p class="popup-text">
-              Relative Elevation Model (REM) of the Carson River, NV. Inspired by 
-              <a 
-                href="https://dancoecarto.com/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
+              Relative Elevation Model (REM) of the Carson River, NV. Inspired by
+              <a href="https://dancoecarto.com/" target="_blank" rel="noopener noreferrer">
                 Dan Coe
               </a>
               's work.
@@ -52,23 +44,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'River',
   setup() {
-    const isInfoVisible = ref(false);
+    const isInfoVisible = ref(false)
 
     const toggleInfo = () => {
-      isInfoVisible.value = !isInfoVisible.value;
-    };
+      isInfoVisible.value = !isInfoVisible.value
+    }
 
     return {
       isInfoVisible,
-      toggleInfo
-    };
-  }
-});
+      toggleInfo,
+    }
+  },
+})
 </script>
 
 <style scoped>
@@ -110,19 +102,19 @@ export default defineComponent({
 
 .info-button {
   background: white;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 100%;
   cursor: pointer;
   padding: 0.5rem;
   color: #dc1a1a;
   opacity: 0.9;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .info-button:hover {
   opacity: 1;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .info-popup {

@@ -9,23 +9,23 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/projects',
     name: 'projects',
-    component: ProjectsView
+    component: ProjectsView,
   },
   {
     path: '/resume',
     name: 'resume',
-    component: ResumeView
-  }
+    component: ResumeView,
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 export default router
