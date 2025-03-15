@@ -84,6 +84,62 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.links-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden; /* Prevent overflow */
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.contact-link span {
+  white-space: normal; /* Allow text to wrap */
+  word-break: break-word;
+  display: inline-block;
+}
+
+.email-link span {
+  font-size: 0.9rem; /* Slightly smaller for email address */
+}
+
+@media (max-width: 360px) {
+  .contact-link {
+    padding: 0.4rem 0.7rem;
+  }
+  
+  .icon {
+    min-width: 20px;
+    height: 20px;
+  }
+  
+  .contact-link span {
+    font-size: 1rem;
+  }
+  
+  .email-link span {
+    font-size: 0.85rem;
+  }
+}
+
+/* Add bottom margin to ensure contact section isn't cut off */
+.contact-section {
+  margin-bottom: 3rem;
+}
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 .contact-section {

@@ -355,6 +355,128 @@ export default defineComponent({
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@media (max-width: 768px) {
+  /* Adjust timeline for better mobile display */
+  .timeline-line {
+    left: 30px;
+    width: 6px;
+  }
+  
+  .timeline-dot {
+    left: 30px;
+    width: 20px;
+    height: 20px;
+    border-width: 3px;
+    box-shadow: 0 0 0 3px #4db6ac, 0 0 10px rgba(77, 182, 172, 0.5);
+  }
+  
+  .timeline-date {
+    position: relative;
+    left: 0;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    text-align: left;
+    padding-left: 45px;
+  }
+  
+  .timeline-date span {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: rgba(77, 182, 172, 0.1);
+    border-left: 3px solid #4db6ac;
+  }
+  
+  .timeline-content {
+    margin-left: 45px;
+    width: calc(100% - 45px);
+    padding: 12px;
+  }
+  
+  .timeline-content:before {
+    display: none; /* Remove arrow on mobile */
+  }
+  
+  .timeline-entry {
+    display: block;
+    margin-bottom: 35px;
+  }
+  
+  /* Adjust text sizes for readability */
+  .job-title {
+    font-size: 1.3rem;
+  }
+  
+  .company-name {
+    font-size: 1.1rem;
+  }
+  
+  .responsibility p {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+  
+  .tech-tag {
+    font-size: 0.8rem;
+    padding: 0.15rem 0.5rem;
+    margin: 0.15rem;
+  }
+  
+  /* Education section */
+  .education-container .timeline-content {
+    padding: 12px;
+  }
+  
+  .degree-title {
+    font-size: 1.3rem;
+  }
+  
+  .institution-name {
+    font-size: 1.1rem;
+  }
+}
+
+/* Small screen adjustments */
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin: 3rem 0 2rem;
+  }
+  
+  .timeline-container {
+    padding: 0 10px;
+  }
+}
+
+/* Fix printed resume */
+@media print {
+  .timeline-line, 
+  .timeline-dot {
+    display: none;
+  }
+  
+  .timeline-date {
+    position: static;
+    width: auto;
+    margin-bottom: 0.5rem;
+  }
+  
+  .timeline-content {
+    margin-left: 0;
+    width: 100%;
+    page-break-inside: avoid;
+  }
+  
+  .timeline-entry {
+    margin-bottom: 2rem;
+    display: block;
+  }
+}
 
 .resume-page {
   min-height: 100vh;

@@ -55,22 +55,21 @@ export default defineComponent({
 
     const showAllElements = () => {
       showEarth.value = true
+      
       setTimeout(() => {
-        showAbout.value = true
-        showRiver.value = true
-        showTitleBar.value = true
-        showContact.value = true
-
-        // Fade out the text after other elements appear
+        shouldFadeText.value = true
+        
         setTimeout(() => {
-          shouldFadeText.value = true
-
-          // Move Earth to title bar after text fades
+          showAbout.value = true
+          showRiver.value = true
+          showTitleBar.value = true
+          showContact.value = true
+          
           setTimeout(() => {
             earthInTitleBar.value = true
-          }, 500)
-        }, 500)
-      }, 1000)
+          }, 300)
+        }, 300)
+      }, 200)
     }
 
     onMounted(() => {
@@ -80,10 +79,8 @@ export default defineComponent({
       document.head.appendChild(link)
 
       if (hasSeenAnimation.value) {
-        // Skip animation if already seen
         showAllElements()
       } else {
-        // Play animation for first time visitors
         if (typingElement.value) {
           const typed = new Typed(typingElement.value, {
             strings: ['hello world!', 'hello ^1000'],
@@ -171,7 +168,7 @@ export default defineComponent({
   font-family: 'VT323', monospace;
   font-size: 1.5rem;
   color: #000000;
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.3s ease-out;
   opacity: 1;
 }
 
@@ -194,7 +191,7 @@ export default defineComponent({
   width: 150px;
   height: 150px;
   opacity: 0;
-  transition: all 0.8s ease;
+  transition: all 0.5s ease;
 }
 
 @media (min-width: 768px) {
@@ -206,12 +203,13 @@ export default defineComponent({
 }
 
 .fade-scale-in {
-  animation: fadeScaleIn 1s ease forwards;
+  animation: fadeScaleIn 0.5s ease forwards;
 }
 
 .move-to-title {
   transform: translate(calc(100vw - 240px), -125%) scale(0.225);
   opacity: 0;
+  transition: all 0.5s ease-in-out;
 }
 
 @media (min-width: 768px) {
