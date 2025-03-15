@@ -37,8 +37,8 @@ export default defineComponent({
         preserveDrawingBuffer: true,
       })
 
-      // Set size based on prop
-      const size = props.small ? 30 : 200
+      // Set size based on prop and check for mobile
+      const size = props.small ? 30 : (window.innerWidth < 768 ? 150 : 200)
       renderer.setSize(size, size)
       renderer.setClearColor(0x000000, 0)
       container.value.appendChild(renderer.domElement)
@@ -90,16 +90,25 @@ export default defineComponent({
       }
     }
 
+    // Handle window resize
+    const handleResize = () => {
+      if (renderer && container.value && !props.small) {
+        const size = window.innerWidth < 768 ? 150 : 200
+        renderer.setSize(size, size)
+      }
+    }
+
     onMounted(() => {
       initThree()
       animate()
+      window.addEventListener('resize', handleResize)
     })
 
     watch(
       () => props.small,
       (newValue) => {
         if (renderer && container.value) {
-          const size = newValue ? 30 : 200
+          const size = newValue ? 30 : (window.innerWidth < 768 ? 150 : 200)
           renderer.setSize(size, size)
         }
       },
@@ -109,6 +118,7 @@ export default defineComponent({
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId)
       }
+      window.removeEventListener('resize', handleResize)
     })
 
     return {
@@ -120,15 +130,22 @@ export default defineComponent({
 
 <style scoped>
 .earth-canvas {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   position: relative;
   transition: all 0.5s ease;
 }
 
+@media (min-width: 768px) {
+  .earth-canvas {
+    width: 200px;
+    height: 200px;
+  }
+}
+
 .earth-canvas.small {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
 }
 
 .earth-canvas canvas {

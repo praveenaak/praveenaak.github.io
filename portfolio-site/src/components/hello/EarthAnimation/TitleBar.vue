@@ -7,15 +7,45 @@
         <Earth :small="true" />
       </div>
     </div>
-    <div class="nav-links">
+    
+    <!-- Mobile menu button -->
+    <button class="mobile-menu-button" aria-label="Toggle menu" @click="toggleMenu">
+      <svg 
+        width="24" 
+        height="24" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        stroke-width="2"
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+      >
+        <line v-if="!menuOpen" x1="3" y1="12" x2="21" y2="12"></line>
+        <line v-if="!menuOpen" x1="3" y1="6" x2="21" y2="6"></line>
+        <line v-if="!menuOpen" x1="3" y1="18" x2="21" y2="18"></line>
+        <line v-if="menuOpen" x1="18" y1="6" x2="6" y2="18"></line>
+        <line v-if="menuOpen" x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    
+    <!-- Desktop navigation -->
+    <div class="nav-links desktop-nav">
       <router-link to="/resume" class="nav-link">RESUME</router-link>
       <router-link to="/projects" class="nav-link">PROJECTS</router-link>
+    </div>
+    
+    <!-- Mobile navigation overlay -->
+    <div class="mobile-nav" :class="{ 'open': menuOpen }">
+      <div class="mobile-nav-links">
+        <router-link to="/resume" class="mobile-nav-link" @click="closeMenu">RESUME</router-link>
+        <router-link to="/projects" class="mobile-nav-link" @click="closeMenu">PROJECTS</router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Earth from './Earth.vue'
 
 export default defineComponent({
@@ -29,6 +59,30 @@ export default defineComponent({
       default: true,
     },
   },
+  setup() {
+    const menuOpen = ref(false);
+    
+    const toggleMenu = () => {
+      menuOpen.value = !menuOpen.value;
+      // Prevent scrolling when menu is open
+      if (menuOpen.value) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    };
+    
+    const closeMenu = () => {
+      menuOpen.value = false;
+      document.body.style.overflow = '';
+    };
+    
+    return {
+      menuOpen,
+      toggleMenu,
+      closeMenu
+    };
+  }
 })
 </script>
 
@@ -45,7 +99,7 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0 1rem;
   font-family: 'VT323', monospace;
   font-size: 1.5rem;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
@@ -56,13 +110,24 @@ export default defineComponent({
 .name-container {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .name {
   color: #fff;
   text-decoration: none;
   transition: opacity 0.2s ease;
+  font-size: 1.2rem;
+}
+
+@media (min-width: 768px) {
+  .title-bar {
+    padding: 0 2rem;
+  }
+  
+  .name {
+    font-size: 1.5rem;
+  }
 }
 
 .name:hover {
@@ -75,6 +140,7 @@ export default defineComponent({
   margin-left: -5px;
 }
 
+/* Desktop navigation */
 .nav-links {
   display: flex;
   gap: 2rem;
@@ -89,6 +155,73 @@ export default defineComponent({
 
 .nav-link:hover {
   opacity: 0.7;
+}
+
+/* Mobile menu button */
+.mobile-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Hide desktop nav on mobile */
+.desktop-nav {
+  display: none;
+}
+
+/* Mobile navigation */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #893168;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav.open {
+  transform: translateY(0);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.mobile-nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 2rem;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-link:hover {
+  opacity: 0.7;
+}
+
+/* Show desktop nav on larger screens */
+@media (min-width: 768px) {
+  .mobile-menu-button {
+    display: none;
+  }
+  
+  .desktop-nav {
+    display: flex;
+  }
 }
 
 .fade-in {

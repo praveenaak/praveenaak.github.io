@@ -49,7 +49,7 @@
           <span>GITHUB</span>
         </a>
 
-        <div class="contact-link">
+        <div class="contact-link email-link">
           <svg
             class="icon"
             viewBox="0 0 24 24"
@@ -88,9 +88,16 @@ export default defineComponent({
 
 .contact-section {
   width: 100%;
-  padding: 2rem;
-  margin-top: 18rem;
+  padding: 1rem;
+  margin-top: 5rem;
   opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .contact-section {
+    padding: 2rem;
+    margin-top: 18rem;
+  }
 }
 
 .contact-container {
@@ -101,16 +108,32 @@ export default defineComponent({
 
 .contact-title {
   font-family: 'VT323', monospace;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   color: #000;
+}
+
+@media (min-width: 768px) {
+  .contact-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .links-container {
   display: flex;
-  justify-content: center;
-  gap: 3rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .links-container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
 }
 
 .contact-link {
@@ -120,10 +143,21 @@ export default defineComponent({
   text-decoration: none;
   color: #000;
   font-family: 'VT323', monospace;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   padding: 0.5rem 1rem;
   border: 2px solid transparent;
   transition: all 0.2s ease;
+  word-break: break-word;
+}
+
+.email-link {
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .contact-link {
+    font-size: 1.25rem;
+  }
 }
 
 .contact-link:hover {
@@ -131,7 +165,7 @@ export default defineComponent({
 }
 
 .icon {
-  width: 24px;
+  min-width: 24px;
   height: 24px;
 }
 

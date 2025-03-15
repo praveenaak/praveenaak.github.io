@@ -67,13 +67,25 @@ export default defineComponent({
 .river-container {
   width: 100%;
   position: relative;
-  margin-top: -6rem;
+  margin-top: -3rem;
+}
+
+@media (min-width: 768px) {
+  .river-container {
+    margin-top: -6rem;
+  }
 }
 
 .river-segments {
   position: relative;
   width: 100%;
-  min-height: 200px;
+  min-height: 150px;
+}
+
+@media (min-width: 768px) {
+  .river-segments {
+    min-height: 200px;
+  }
 }
 
 .river-segment {
@@ -94,10 +106,16 @@ export default defineComponent({
 
 .info-button-container {
   position: absolute;
-  left: 5rem;
+  left: 1rem;
   top: 120%;
   transform: translateY(-50%);
   z-index: 100;
+}
+
+@media (min-width: 768px) {
+  .info-button-container {
+    left: 5rem;
+  }
 }
 
 .info-button {
@@ -119,9 +137,8 @@ export default defineComponent({
 
 .info-popup {
   position: absolute;
-  left: calc(100% + 1rem);
-  top: 50%;
-  transform: translateY(-50%);
+  left: 0;
+  top: calc(100% + 10px);
   background-color: #000;
   color: #fff;
   padding: 1.5rem;
@@ -130,6 +147,14 @@ export default defineComponent({
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
   image-rendering: pixelated;
   font-family: 'VT323', monospace;
+}
+
+@media (min-width: 768px) {
+  .info-popup {
+    left: calc(100% + 1rem);
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
 .close-button {
