@@ -136,27 +136,49 @@ export default defineComponent({
   width: 100%;
   height: 100vh;
   margin: 0;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .typing-container {
+    padding-top: 1rem;
+  }
 }
 
 .text-earth-container {
   position: relative;
   display: flex;
   align-items: center;
-  font-size: 2rem;
-  margin-left: 2rem;
-  margin-top: 2rem;
-  padding-top: 1rem;
-  height: 200px;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  height: 150px;
+}
+
+@media (min-width: 768px) {
+  .text-earth-container {
+    font-size: 2rem;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    height: 200px;
+  }
 }
 
 .pixel-text {
   font-family: 'VT323', monospace;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #000000;
   transition: opacity 0.5s ease-out;
   opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .pixel-text {
+    font-size: 2rem;
+  }
 }
 
 .pixel-text.fade-out {
@@ -166,13 +188,21 @@ export default defineComponent({
 
 .earth-container {
   position: absolute;
-  left: 40px;
+  left: 20px;
   top: 50%;
   transform: translateY(-50%);
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   opacity: 0;
   transition: all 0.8s ease;
+}
+
+@media (min-width: 768px) {
+  .earth-container {
+    left: 40px;
+    width: 200px;
+    height: 200px;
+  }
 }
 
 .fade-scale-in {
@@ -180,8 +210,14 @@ export default defineComponent({
 }
 
 .move-to-title {
-  transform: translate(calc(100vw - 280px), -125%) scale(0.225);
+  transform: translate(calc(100vw - 240px), -125%) scale(0.225);
   opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .move-to-title {
+    transform: translate(calc(100vw - 280px), -125%) scale(0.225);
+  }
 }
 
 @keyframes fadeScaleIn {
@@ -197,11 +233,17 @@ export default defineComponent({
 
 :deep(.typed-cursor) {
   font-family: 'VT323', monospace;
-  font-size: 2rem;
+  font-size: 1.5rem;
   opacity: 1;
   margin-left: 2px;
   animation: none !important;
   color: #000;
+}
+
+@media (min-width: 768px) {
+  :deep(.typed-cursor) {
+    font-size: 2rem;
+  }
 }
 
 :deep(.typed-fade-out) {
