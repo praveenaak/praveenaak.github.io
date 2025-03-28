@@ -1,11 +1,14 @@
 :root {
-  --primary-color: #2A9D8F;
-  --secondary-color: #264653;
-  --accent-color: #E9C46A;
+  --primary-color: #2E8B57;
+  --secondary-color: #8B4513;
+  --accent-color: #BF00FF;
   --text-color: #000;
   --light-text: #fff;
+  --neutral-beige: #D2B48C;
+  --neutral-gray: #708090;
+  --background-color: #F9F6EF;
   --border-color: rgba(0, 0, 0, 0.1);
-  --font-family: 'VT323', monospace;
+  --font-family: 'Lora', serif;
 }
 
 html {
@@ -110,7 +113,7 @@ body {
 }
 
 .about-text {
-  font-size: 1.2rem;
+  font-size: 0.5 rem;
   line-height: 1.3;
 }
 

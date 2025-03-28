@@ -1,0 +1,96 @@
+/* Animations */
+
+/* Fade in animation */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade out animation */
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Scale animation */
+.fade-scale-in {
+  animation: fadeScaleIn 0.8s ease forwards;
+}
+
+@keyframes fadeScaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Earth animation container */
+.earth-container {
+  width: 200px;
+  height: 200px;
+}
+
+@media (min-width: 768px) {
+  .earth-container {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+/* Move to title animation */
+.move-to-title {
+  transform: translate(calc(100vw - 240px), -125%) scale(0.225);
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .move-to-title {
+    transform: translate(calc(100vw - 280px), -125%) scale(0.225);
+  }
+}
+
+/* Typing cursor animation */
+.typed-cursor {
+  font-family: var(--font-family-primary);
+  font-size: 1.5rem;
+  opacity: 1;
+  margin-left: 2px;
+  animation: none !important;
+  color: var(--primary-green);
+  font-weight: 700; /* Updated to Lora Bold */
+}
+
+@media (min-width: 768px) {
+  .typed-cursor {
+    font-size: 2rem;
+  }
+}
+
+.typed-fade-out {
+  opacity: 1 !important;
+}

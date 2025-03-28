@@ -6,16 +6,6 @@
       <div class="pixel-text" :class="{ 'fade-out': shouldFadeText }">
         <span ref="typingElement">{{ hasSeenAnimation ? 'hello' : '' }}</span>
       </div>
-      <div
-        v-if="showEarth"
-        class="earth-container"
-        :class="{
-          'fade-scale-in': !earthInTitleBar,
-          'move-to-title': earthInTitleBar,
-        }"
-      >
-        <Earth v-if="!earthInTitleBar" :small="false" />
-      </div>
     </div>
 
     <AboutMe v-if="showAbout" />
@@ -73,10 +63,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = 'https://fonts.googleapis.com/css2?family=VT323&display=swap'
-      document.head.appendChild(link)
+      // Font is now imported in index.html
 
       if (hasSeenAnimation.value) {
         showAllElements()
@@ -124,7 +111,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+/* Font is now imported in index.html */
 
 .typing-container {
   position: relative;
@@ -165,11 +152,12 @@ export default defineComponent({
 }
 
 .pixel-text {
-  font-family: 'VT323', monospace;
+  font-family: var(--font-family);
   font-size: 1.5rem;
-  color: #000000;
+  color: var(--primary-color);
   transition: opacity 0.3s ease-out;
   opacity: 1;
+  font-weight: 600;
 }
 
 @media (min-width: 768px) {
@@ -183,24 +171,7 @@ export default defineComponent({
   pointer-events: none;
 }
 
-.earth-container {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 150px;
-  height: 150px;
-  opacity: 0;
-  transition: all 0.5s ease;
-}
-
-@media (min-width: 768px) {
-  .earth-container {
-    left: 40px;
-    width: 200px;
-    height: 200px;
-  }
-}
+/* Earth is now in AboutMe component */
 
 .fade-scale-in {
   animation: fadeScaleIn 0.5s ease forwards;
@@ -230,12 +201,13 @@ export default defineComponent({
 }
 
 :deep(.typed-cursor) {
-  font-family: 'VT323', monospace;
+  font-family: var(--font-family);
   font-size: 1.5rem;
   opacity: 1;
   margin-left: 2px;
   animation: none !important;
-  color: #000;
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 @media (min-width: 768px) {

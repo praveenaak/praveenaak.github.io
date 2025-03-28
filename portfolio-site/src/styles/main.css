@@ -1,0 +1,56 @@
+/* Main CSS file that imports all style modules */
+
+/* Base styles */
+@import './base/_variables.css';
+@import './base/_reset.css';
+@import './base/_typography.css';
+
+/* Layout styles */
+@import './layout/_grid.css';
+
+/* Component styles */
+@import './components/_buttons.css';
+@import './components/_header.css';
+@import './components/_timeline.css';
+@import './components/_animations.css';
+@import './components/_river.css';
+
+/* Media print styles for resume */
+@media print {
+  .title-bar, 
+  .contact-section {
+    display: none;
+  }
+  
+  .resume-page {
+    background-color: white;
+  }
+  
+  .timeline-container {
+    padding: 0;
+  }
+  
+  .timeline-line, 
+  .timeline-dot {
+    display: none;
+  }
+  
+  .timeline-date {
+    position: static;
+    width: auto;
+    margin-bottom: 0.5rem;
+  }
+  
+  .timeline-content {
+    margin-left: 0;
+    width: 100%;
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .timeline-entry {
+    margin-bottom: 2rem;
+    display: block;
+  }
+}

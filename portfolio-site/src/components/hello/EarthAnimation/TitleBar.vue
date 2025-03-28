@@ -87,7 +87,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+/* Font is now imported in index.html */
 
 .title-bar {
   position: fixed;
@@ -95,7 +95,7 @@ export default defineComponent({
   left: 0;
   width: 100%;
   height: 50px;
-  background-color: #893168;
+  background-color: #2E8B57; /* Misty Pine primary green */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -118,6 +118,8 @@ export default defineComponent({
   text-decoration: none;
   transition: opacity 0.2s ease;
   font-size: 1.2rem;
+  font-family: var(--font-family);
+  font-weight: 600;
 }
 
 @media (min-width: 768px) {
@@ -151,6 +153,8 @@ export default defineComponent({
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-family: var(--font-family);
+  font-weight: 500;
 }
 
 .nav-link:hover {
@@ -181,7 +185,7 @@ export default defineComponent({
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: #893168;
+  background-color: #2E8B57; /* Misty Pine primary green */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,6 +211,8 @@ export default defineComponent({
   text-decoration: none;
   font-size: 2rem;
   transition: all 0.2s ease;
+  font-family: var(--font-family);
+  font-weight: 500;
 }
 
 .mobile-nav-link:hover {

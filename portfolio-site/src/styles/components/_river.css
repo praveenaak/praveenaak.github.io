@@ -1,0 +1,44 @@
+/* River component styles */
+
+.river-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin: var(--spacing-xl) 0;
+  opacity: 0;
+}
+
+.river-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.river-image img {
+  max-width: 100%;
+  height: auto;
+  /* Add a subtle animation to make the texture appear to flow */
+  animation: riverFlow 30s linear infinite;
+}
+
+@keyframes riverFlow {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .river-container {
+    margin: var(--spacing-xxl) 0;
+  }
+  
+  .river-image img {
+    max-width: 80%;
+  }
+}

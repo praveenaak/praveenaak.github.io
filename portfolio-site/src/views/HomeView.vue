@@ -1,24 +1,18 @@
+<!-- HomeView.vue -->
 <template>
   <main>
-    <HelloWorld />
+    <HomeTypingAnimation />
   </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from '@/components/HelloWorld.vue'
+import HomeTypingAnimation from '@/components/home/HomeTypingAnimation.vue'
 
 export default defineComponent({
   name: 'HomeView',
   components: {
-    HelloWorld,
-  },
+    HomeTypingAnimation
+  }
 })
 </script>
-
-<style scoped>
-main {
-  width: 100%;
-  min-height: 100vh;
-}
-</style>
