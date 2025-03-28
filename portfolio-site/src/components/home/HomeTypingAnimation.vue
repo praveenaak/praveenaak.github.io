@@ -18,9 +18,20 @@
       </div>
     </div>
     
+    <!-- About Me section that appears after animation -->
+    <div class="about-me-container" v-if="showAboutMe" :class="{ 'fade-in': showAboutMe }">
+      <p class="about-text">
+        I'm Praveenaa, a <span class="highlight-text">geospatial software developer</span> who finds narratives in complex spatial data.
+      </p>
+      <p class="about-text">
+        I transform and analyze raw geographic data, building both intuitive map-based applications and efficient data pipelines that convert complex spatial information into practical tools.
+        My passion lies in working with <em>climate data</em>, where I create tools that help us better understand and navigate our changing world.
+      </p>
+    </div>
+    
     <!-- Right section where Earth will roll to -->
     <div class="right-section" v-if="showRightSection">
-      <!-- Content for the right section will go here -->
+      <!-- Content for the right section -->
     </div>
   </div>
 </template>
@@ -40,7 +51,8 @@ export default defineComponent({
     const showEarth = ref(false)
     const earthRolling = ref(false)
     const showRightSection = ref(false)
-    const hasSeenAnimation = ref(false)
+    const showAboutMe = ref(false)
+    const hasSeenAnimation = ref(localStorage.getItem('hasSeenAnimation') === 'true')
 
     // Function to trigger the rolling animation
     const startRollingAnimation = () => {
@@ -51,17 +63,24 @@ export default defineComponent({
       setTimeout(() => {
         earthRolling.value = true
         
-        // After the animation completes, you can trigger the next step
-        // For example, showing content in the right section
+        // Show about text shortly after the Earth starts moving
+        // but before the animation completes
         setTimeout(() => {
-          // Next animation steps can go here
-          console.log('Earth rolling animation completed')
-        }, 3000) // Match this to the animation duration
-      }, 300) // Reduced from 1000ms to 300ms
+          showAboutMe.value = true
+          // Save that the user has seen the animation
+          localStorage.setItem('hasSeenAnimation', 'true')
+        }, 500) // Show about text 500ms after Earth starts rolling
+      }, 300)
     }
 
     onMounted(() => {
-      if (typingElement.value) {
+      if (hasSeenAnimation.value) {
+        // If animation was already seen, skip animation and show about text
+        showEarth.value = true
+        earthRolling.value = true
+        showRightSection.value = true
+        showAboutMe.value = true
+      } else if (typingElement.value) {
         const typed = new Typed(typingElement.value, {
           strings: ['hello world!', 'hello '],
           typeSpeed: 80,
@@ -84,16 +103,9 @@ export default defineComponent({
             // After Earth appears, start the rolling animation with shorter delay
             setTimeout(() => {
               startRollingAnimation()
-            }, 500) // Reduced from 1500ms to 500ms
+            }, 500)
           }
         })
-      }
-      
-      // If animation was already seen (for testing)
-      if (hasSeenAnimation.value) {
-        showEarth.value = true
-        // You can auto-start the rolling animation for testing
-        // startRollingAnimation()
       }
     })
 
@@ -102,6 +114,7 @@ export default defineComponent({
       showEarth,
       earthRolling,
       showRightSection,
+      showAboutMe,
       hasSeenAnimation
     }
   }
@@ -158,6 +171,38 @@ export default defineComponent({
   100% {
     transform: translateX(calc(60vw - 150px)) translateY(200px) scale(2.5);
   }
+}
+
+/* About Me section */
+.about-me-container {
+  max-width: 600px;
+  margin-left: 6rem; /* Match the hello text positioning */
+  margin-top: 1.5rem; /* Reduced space between hello and about text */
+  opacity: 0;
+  transition: opacity 1s ease;
+  padding: 0;
+}
+
+.about-me-container.fade-in {
+  opacity: 1;
+}
+
+.about-text {
+  font-family: 'Lora', serif;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: var(--text-primary, #000000);
+  text-align: left;
+  font-weight: 500;
+}
+
+.highlight-text {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--text-primary, #000000);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-purple, #BF00FF);
+  text-decoration-thickness: 2px;
 }
 
 /* Right section styling */
@@ -224,6 +269,15 @@ export default defineComponent({
   
   :deep(.typed-cursor) {
     font-size: 2rem;
+  }
+  
+  .about-text {
+    font-size: 1.6rem;
+  }
+  
+  .about-me-container {
+    margin-left: 10rem; /* Matches the hello text positioning on desktop */
+    margin-top: 2rem; /* Slightly more space on desktop */
   }
 }
 </style>
