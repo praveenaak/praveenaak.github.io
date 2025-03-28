@@ -1,261 +1,229 @@
 <!-- HomeTypingAnimation.vue -->
 <template>
   <div class="typing-container">
-    <Header :show="showHeader" :showEarth="earthInHeader" />
     <div class="text-earth-container">
-      <div class="pixel-text" :class="{ 'fade-text': shouldFadeText }">
+      <div class="text-container">
         <span ref="typingElement">{{ hasSeenAnimation ? 'hello' : '' }}</span>
       </div>
-      <!-- Earth replaces "world" text -->
+      <!-- Earth appears after "world" is backspaced, positioned below text but in same row -->
       <div 
         v-if="showEarth" 
         class="earth-container" 
-        :class="{
-          'initial-position': !earthMoving,
-          'move-to-about': earthMoving && !earthInHeader,
-          'move-to-title': earthInHeader
+        :class="{ 
+          'fade-in': showEarth,
+          'roll-to-right': earthRolling
         }"
       >
-        <Earth v-if="!earthInHeader" :small="false" />
+        <Earth :small="false" />
       </div>
     </div>
-
-    <AboutMe v-if="showAbout" />
-    <River v-if="showRiver" />
-    <ContactInfo v-if="showContact" :show="showContact" />
+    
+    <!-- Right section where Earth will roll to -->
+    <div class="right-section" v-if="showRightSection">
+      <!-- Content for the right section will go here -->
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import Typed from 'typed.js'
-import Header from '@/components/layout/Header.vue'
-import AboutMe from '@/components/home/AboutMe.vue'
-import River from '@/components/animations/River.vue'
-import ContactInfo from '@/components/home/ContactInfo.vue'
+import Earth from '@/components/animations/Earth.vue'
 
 export default defineComponent({
   name: 'HomeTypingAnimation',
   components: {
-    Header,
-    AboutMe,
-    River,
-    ContactInfo,
+    Earth
   },
   setup() {
     const typingElement = ref<HTMLElement | null>(null)
     const showEarth = ref(false)
-    const showAbout = ref(false)
-    const showHeader = ref(false)
-    const showContact = ref(false)
-    const showRiver = ref(false)
-    const shouldFadeText = ref(false)
-    const earthMoving = ref(false)
-    const earthInHeader = ref(false)
-    const hasSeenAnimation = ref(false) // Force animation to run for testing
+    const earthRolling = ref(false)
+    const showRightSection = ref(false)
+    const hasSeenAnimation = ref(false)
 
-    const showAllElements = () => {
-      if (hasSeenAnimation.value) {
-        // Skip animation if user has seen it before
-        showEarth.value = true
-        showAbout.value = true
-        showRiver.value = true
-        showHeader.value = true
-        showContact.value = true
-        earthInHeader.value = true
-      } else {
-        // Show earth where "world" was
-        showEarth.value = true
+    // Function to trigger the rolling animation
+    const startRollingAnimation = () => {
+      // First show the right section
+      showRightSection.value = true
+      
+      // After a shorter delay, start the rolling animation
+      setTimeout(() => {
+        earthRolling.value = true
         
-        // After a pause, start moving elements
+        // After the animation completes, you can trigger the next step
+        // For example, showing content in the right section
         setTimeout(() => {
-          earthMoving.value = true
-          shouldFadeText.value = true
-          
-          // When earth starts to move, show content
-          setTimeout(() => {
-            showAbout.value = true
-            showRiver.value = true
-            showHeader.value = true
-            showContact.value = true
-            
-            // Finally move earth to header
-            setTimeout(() => {
-              earthInHeader.value = true
-            }, 600)
-          }, 600)
-        }, 600)
-      }
+          // Next animation steps can go here
+          console.log('Earth rolling animation completed')
+        }, 3000) // Match this to the animation duration
+      }, 300) // Reduced from 1000ms to 300ms
     }
 
     onMounted(() => {
-      if (hasSeenAnimation.value) {
-        showAllElements()
-      } else {
-        if (typingElement.value) {
-          // Listen for when backspacing reaches "hello "
-          let backspaceReachedHello = false;
-          
-          const typed = new Typed(typingElement.value, {
-            strings: ['hello world!', 'hello '],
-            typeSpeed: 80,
-            backSpeed: 50,
-            showCursor: true,
-            cursorChar: '|',
-            smartBackspace: true,
-            startDelay: 300,
-            backDelay: 500,
-            onComplete: (self) => {
-              // When typing is complete, show Earth at position of "world"
-              showEarth.value = true;
-              
-              // Then after 1 second, move Earth and show other elements
-              setTimeout(() => {
-                earthMoving.value = true;
-                shouldFadeText.value = true;
-                
-                setTimeout(() => {
-                  showAbout.value = true;
-                  showRiver.value = true;
-                  showHeader.value = true;
-                  showContact.value = true;
-                  
-                  setTimeout(() => {
-                    earthInHeader.value = true;
-                  }, 600);
-                }, 600);
-                
-                localStorage.setItem('hasSeenAnimation', 'true');
-              }, 1000);
-              
-              // Hide cursor after typing is done
-              const cursor = document.querySelector('.typed-cursor');
-              if (cursor) {
-                cursor.classList.add('hide-cursor');
-              }
+      if (typingElement.value) {
+        const typed = new Typed(typingElement.value, {
+          strings: ['hello world!', 'hello '],
+          typeSpeed: 80,
+          backSpeed: 50,
+          showCursor: true,
+          cursorChar: '|',
+          smartBackspace: true,
+          startDelay: 300,
+          backDelay: 500,
+          onComplete: (self) => {
+            // Show Earth when typing completes (after backspacing "world")
+            showEarth.value = true
+            
+            // Remove cursor completely after typing is done
+            const cursor = document.querySelector('.typed-cursor')
+            if (cursor) {
+              cursor.remove()
             }
-          });
-        }
+            
+            // After Earth appears, start the rolling animation with shorter delay
+            setTimeout(() => {
+              startRollingAnimation()
+            }, 500) // Reduced from 1500ms to 500ms
+          }
+        })
+      }
+      
+      // If animation was already seen (for testing)
+      if (hasSeenAnimation.value) {
+        showEarth.value = true
+        // You can auto-start the rolling animation for testing
+        // startRollingAnimation()
       }
     })
 
     return {
       typingElement,
       showEarth,
-      showAbout,
-      showHeader,
-      showRiver,
-      showContact,
-      shouldFadeText,
-      earthMoving,
-      earthInHeader,
-      hasSeenAnimation,
+      earthRolling,
+      showRightSection,
+      hasSeenAnimation
     }
-  },
+  }
 })
 </script>
 
 <style scoped>
 .typing-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  margin: 0;
-  padding-top: var(--spacing-sm);
+  padding-top: 20vh; /* Positioned lower down */
   overflow: hidden;
 }
 
 .text-earth-container {
   position: relative;
   display: flex;
-  align-items: center;
-  margin-left: var(--spacing-md);
-  margin-top: var(--spacing-md);
-  padding-top: var(--spacing-sm);
-  height: 150px;
+  align-items: center; /* Back to center alignment */
+  margin-left: 6rem; /* Positioned more to the right */
 }
 
-.pixel-text {
+.text-container {
+  font-family: 'Lora', serif;
   font-size: 1.5rem;
-  color: var(--primary-green);
-  transition: opacity 0.3s ease-out;
-  opacity: 1;
-  font-weight: 700; /* Updated to Lora Bold */
-  display: inline-block;
-}
-
-.pixel-text.fade-text {
-  opacity: 0.5;
-  pointer-events: none;
+  color: #2E8B57; /* Misty Pine (Primary Green) */
+  font-weight: 700;
 }
 
 /* Earth container animations */
 .earth-container {
   position: absolute;
-  width: 40px;
-  height: 40px;
-  transition: all 0.8s ease-in-out;
   left: 5.9rem; /* Positioned where "world" would be */
-  top: 50%;
-  transform: translateY(-50%);
+  top: 2.5rem; /* Positioned below the text but in same row */
   opacity: 0;
-  z-index: 2;
+  transition: opacity 0.8s ease;
+  transform-origin: center center;
 }
 
-.earth-container.initial-position {
+.earth-container.fade-in {
   opacity: 1;
 }
 
-.earth-container.move-to-about {
-  width: 150px;
-  height: 150px;
-  left: 60%;
-  transform: translate(-50%, -50%);
+/* Rolling animation */
+.earth-container.roll-to-right {
+  animation: rollToRight 3s ease-in-out forwards;
+}
+
+@keyframes rollToRight {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  100% {
+    transform: translateX(calc(60vw - 150px)) translateY(200px) scale(2.5);
+  }
+}
+
+/* Right section styling */
+.right-section {
+  position: absolute;
+  top: 20vh;
+  left: 50%; /* Center it in the page */
+  transform: translateX(-50%); /* Center it in the page */
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Style for the typing cursor */
+:deep(.typed-cursor) {
+  font-size: 1.5rem;
+  color: #2E8B57;
   opacity: 1;
 }
 
-.earth-container.move-to-title {
-  transform: translate(calc(100vw - 240px), -125%) scale(0.25);
-  opacity: 0;
-}
-
-.hide-cursor {
+.typed-fade-out {
   opacity: 0 !important;
+  transition: opacity 0.25s;
 }
 
 @media (min-width: 768px) {
   .typing-container {
-    padding-top: var(--spacing-md);
+    padding-top: 25vh; /* Even lower on desktop */
   }
-
+  
   .text-earth-container {
-    font-size: 2rem;
-    margin-left: var(--spacing-xl);
-    margin-top: var(--spacing-xl);
-    padding-top: var(--spacing-md);
-    height: 200px;
+    margin-left: 10rem; /* More to the right on desktop */
   }
-
-  .pixel-text {
+  
+  .text-container {
     font-size: 2rem;
   }
   
   .earth-container {
-    width: 50px;
-    height: 50px;
-    left: 7.5rem; /* Adjusted for larger screen */
+    left: 4rem; /* Adjusted for larger font on desktop */
+    top: -5rem; /* Slightly more space on desktop */
+  }
+
+  @keyframes rollToRight {
+    0% {
+      transform: translateX(0) translateY(0) scale(1);
+    }
+    100% {
+      transform: translateX(calc(65vw - 200px)) translateY(250px) scale(3.5);
+    }
   }
   
-  .earth-container.move-to-about {
-    width: 200px;
-    height: 200px;
-    left: 70%;
+  .right-section {
+    width: 400px;
+    height: 400px;
+    top: 25vh;
   }
   
-  .earth-container.move-to-title {
-    transform: translate(calc(100vw - 280px), -125%) scale(0.225);
+  :deep(.typed-cursor) {
+    font-size: 2rem;
   }
 }
 </style>

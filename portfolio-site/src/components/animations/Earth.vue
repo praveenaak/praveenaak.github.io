@@ -74,7 +74,7 @@ export default defineComponent({
       
       // Rotate Earth
       if (earth) {
-        earth.rotation.y += 0.005
+        earth.rotation.y += 0.002
       }
       
       renderer.render(scene, camera)
